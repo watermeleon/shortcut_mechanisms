@@ -1,0 +1,5 @@
+setuptools 
+torch
+transformers
+wget
+pandas

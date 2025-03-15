@@ -1,0 +1,42 @@
+model_name: "gpt2"
+learning_rate: 5e-5
+epochs: 3
+batch_size: 16
+eval_batch_size: 32
+sample_size: 0
+max_tokens: 100
+recreate_data: true
+dataset: "imdb"
+manual_prepend_bos: true
+seed: 42
+exp_name: "leon_exp_v2"
+
+wandb_name: "gpt_classifier"
+use_wandbid_name: true
+
+update_label_only: true
+gradient_accumulation_steps: 4
+num_workers: 2
+eval_every: 1
+use_hooked_transform: true
+save_model: false
+
+load_processed_data: false
+save_processed_data: false
+
+data_processing:
+  num_actors: 1
+  train_imbalance: 0.001
+  test_imbalance: 0.10
+  val_imbalance: 0.05
+  shortcut_only_full: true
+  sentence_window_size: 2
+  train_purity: 1.0
+  start_name_idx: 0
+
+
+paths:
+  output_dir: "./results/"
+  model_save_path: "gpt2_imdb_classifier.pth"
+  dataset_save_path: "processed_imdb_dataset.pkl"
+  results_save_path: "imdb_classification_results.json"

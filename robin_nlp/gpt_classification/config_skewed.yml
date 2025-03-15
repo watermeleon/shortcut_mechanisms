@@ -1,0 +1,15 @@
+# config.yml
+data:
+  num_actors: 4
+  train_imbalance: 0.5
+  test_imbalance: 0.2
+
+model:
+  learning_rate: 1e-5
+  epochs: 1
+  batch_size: 16
+
+paths:
+  model_save_path: "./models/gpt2_imdb_classifier.pth"
+  dataset_save_path: "./data/processed_imdb_dataset.pkl"
+  results_save_path: "./results/imdb_classification_results.json"
