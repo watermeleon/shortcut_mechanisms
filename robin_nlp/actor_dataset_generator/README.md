@@ -10,12 +10,13 @@ We the imdb metadata to obtain a file with male actor names and female actor nam
 - Run the file `get_famous_actors.py` to download and process the csv file.
 - Results in a file `actornames.npy` and `actress_names.npy`
 
-### Step 2: Find actor names in the IMDB review dataset
-We use the preselected lists of actor names to match them in the text.
-- Run the function `process_imdb_actors.py`
-- This will also download the IMDB review dataset.
-- Will split the original review up in sentences, check if an existing actor name is in it, and if so store the results in a json file.
-- Results in a folder: `data/imdb_filt_data/` with files `train_filtered.json`, `val_filtered.json`, `test_filtered.json`
+### Step 2: Find names in the IMDB review dataset
+We use spacy named endity tagger to find person names.
+- If not already installed run : `python3 -m spacy download en_core_web_trf`
+- Run the function `extract_names_and_gender.py`
+- Will version of reviews where found names are templated and matched to gender based on first name statistics. 
+- Results in a folder: `data/imdb_actors_dataset/templated` with files `traintemplated_reviews.json`, `val_templated_reviews.json`, `test_templated_reviews.json`
+
 
 ### Step 3: Create ActorCorr dataset
 - Currently still done in the `process_and_train.py`

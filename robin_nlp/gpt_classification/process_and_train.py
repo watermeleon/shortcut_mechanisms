@@ -25,7 +25,7 @@ def import_templated_data(logger, base_path="./data/imdb_actors_dataset/") -> Tu
     for data_set in data_sets:
         
         data_path = f"{data_set}_templated_reviews.json"
-        file_path = os.path.join(base_path, data_path)
+        file_path = os.path.join(base_path, "templated", data_path)
         
         try:
             with open(file_path, 'r') as f:

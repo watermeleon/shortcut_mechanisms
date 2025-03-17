@@ -333,16 +333,16 @@ def process_reviews_split(data_split):
     return result_list
 
 
-# import pickle
 def store_data_split(data_path, data_split, split_name):
     with open(f"{data_path}{split_name}_templated_reviews.json", 'w') as f:  # Note: 'w' for write
         json.dump(data_split, f, indent=4)
     print("Stored the results for split: ", split_name)
 
+
 def process_reviews():
     print("current path is:", os.getcwd())
 
-    data_path = "./data/imdb_actors_dataset/wtf/"
+    data_path = "./data/imdb_actors_dataset/templated/"
     os.makedirs(data_path, exist_ok=True)
 
     # Load the dataset config and datasets
@@ -363,8 +363,5 @@ def process_reviews():
 
 if __name__ == "__main__":
     nltk.download('punkt')
-    # nltk.download('en_core_web_trf')
-    # from spacy.cli import download
-    spacy.cli.download("en_core_web_trf")
-
+    # spacy.cli.download("en_core_web_trf")
     process_reviews()
