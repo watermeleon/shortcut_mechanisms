@@ -26,8 +26,6 @@ from robin_nlp.gpt_classification.train_gpt_text_classifier import GPTClassifier
 from robin_nlp.gpt_classification.dataset_config import get_dataset_config
 
 
-
-
 # Load tokenizer
 tokenizer = AutoTokenizer.from_pretrained("gpt2")
 
@@ -253,22 +251,14 @@ def batched_path_patching_step_N(classifier, original, modified, ref_next_steps,
         ref_logits = classifier.model(orig_ids, return_type='logits', prepend_bos=False)
         cf_logits = classifier.model(mod_ids, return_type='logits', prepend_bos=False)
         
-        # ref_logit_diff = first_step_logit_diff(ref_logits, ref_next_batch, cf_next_batch, return_mean=True)
-        # cf_logit_diff = first_step_logit_diff(cf_logits, ref_next_batch, cf_next_batch, return_mean=True)
-        
-        # ref_logits_diff_list.append(ref_logit_diff)
-        # cf_logits_diff_list.append(cf_logit_diff)
         ref_logit_diff = first_step_logit_diff(ref_logits, ref_next_batch, cf_next_batch, return_mean=False)
         cf_logit_diff = first_step_logit_diff(cf_logits, ref_next_batch, cf_next_batch, return_mean=False)
         
         ref_logits_diff_list.append(ref_logit_diff.detach().cpu().numpy())
         cf_logits_diff_list.append(cf_logit_diff.detach().cpu().numpy())
-    # c = [item for sublist in [a,b] for item in sublist]
 
     ref_logits_diff_list = [item for sublist in ref_logits_diff_list for item in sublist] 
-    # ref_logit_diff = torch.mean(torch.stack(ref_logits_diff_list))
     ref_logit_diff = torch.mean(torch.Tensor(ref_logits_diff_list))
-    # cf_logit_diff = torch.mean(torch.stack(cf_logits_diff_list))
     cf_logits_diff_list = [item for sublist in cf_logits_diff_list for item in sublist]
     cf_logit_diff = torch.mean(torch.Tensor(cf_logits_diff_list))
 
@@ -294,7 +284,6 @@ def batched_path_patching_step_N(classifier, original, modified, ref_next_steps,
             orig_input=orig_ids,
             new_input=mod_ids, 
             sender_nodes=IterNode(['z', 'mlp_out']),
-            # sender_nodes=IterNode('z'),
             receiver_nodes=receiver_nodes,
             patching_metric=metric_partial,
             verbose=False,
@@ -408,7 +397,6 @@ def load_trained_model(config_path, model_path, dataset_path, return_test_recast
     dataset_config = get_dataset_config(args.dataset)
 
     classifier = GPTClassifier(args, logger, dataset_config)
-    # classifier = GPTClassifier(args, logger)
     state_dict = torch.load(model_path)
     classifier.model.load_state_dict(state_dict)
     
@@ -420,9 +408,7 @@ def load_trained_model(config_path, model_path, dataset_path, return_test_recast
     classifier.val_data_full = val_recast
     classifier.label_mapping = label_mapping
 
-
     classifier.model.eval()
-    
     classifier.model.to("cuda")
 
     if return_test_recast:
@@ -446,9 +432,6 @@ if __name__ == "__main__":
     ##############################
     ##### Parameters to Set ######
     exp_name = "SCperc_v2_WBIDmilvmakz"
-    # exp_name = "SCperc_v2_WBID0yt9x5gg"
-    # exp_name = "SCperc_v2_WBID1xijoxpb"
-
 
     use_intermediate = args.intermediate == "True"
     max_samples = args.max_samples
@@ -461,7 +444,6 @@ if __name__ == "__main__":
     ##### Parameters to Set ######
     intermediate_nodes_good = [(11, 2), (10, 0), (10,6)]
     intermediate_nodes_bad = [(11, 2), (10, 0), (10,6)]
-    # intermediate_nodes_good= intermediate_nodes_bad = [0]
 
     ##############################
 
@@ -477,10 +459,7 @@ if __name__ == "__main__":
 
     classifier, val_recast = load_trained_model(config_path, model_path, dataset_path)
 
-
-    # all_categories = ['pos_good', 'pos_bad', 'neg_good', 'neg_bad']
     all_categories = ['pos_bad', 'neg_good']
-
 
     final_results = {}
     for cat in all_categories:

@@ -26,7 +26,6 @@ def first_step_logit_diff(logits: Tensor, ref_next_steps: Tensor, cf_next_steps:
         torch.Tensor: The mean difference between the original path logits and the new path logits.
     """
     batch_size = logits.size(0)
-    # label_id = -1
     label_id = -2
     orig_path_logits = logits[range(batch_size), [label_id]*batch_size, ref_next_steps]
     new_path_logits = logits[range(batch_size), [label_id]*batch_size, cf_next_steps]
@@ -95,10 +94,6 @@ def show_logit_diff_heatmap_grid(results, ref_logits=None, ref_logit_diff=None, 
     zmin, zmax = -max_scale, max_scale
 
     for i, result in enumerate(relative_logit_diffs):
-        # check if result is full or zeros if so continue
-        # if np.all(result == 0):
-        #     print("all zeros")
-        #     continue
 
         fig.add_trace(
             Heatmap(z=result, colorscale="RdBu", zmin=zmin, zmax=zmax),

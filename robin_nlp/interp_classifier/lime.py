@@ -22,10 +22,6 @@ class AttributionResults:
     tokens: torch.Tensor
 
 
-
-
-
-
 class SentimentAnalyzer_LIME:
     def __init__(
         self,
@@ -233,14 +229,5 @@ class SentimentAnalyzer_LIME:
         attributions = model.coef_
 
         return attributions
-        # Map attributions to tokens
-        # str_toks = self.model.to_str_tokens(tokens.squeeze())
-        # word_attributions = [(t, a) for t, a in zip(str_toks, attributions)]
-        
-        # return AttributionResults(
-        #     prediction=prediction,
-        #     word_attributions=word_attributions,
-        #     tokens=tokens
-        # )
 
 

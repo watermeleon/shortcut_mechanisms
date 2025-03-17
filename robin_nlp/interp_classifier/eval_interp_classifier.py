@@ -1,44 +1,28 @@
 import os
 import json
-
 import pickle
-
-import wandb
-
-# import pandas as pd
-# from IPython.display import display
-
-# Third-party imports
-import torch
-# import matplotlib.pyplot as plt
+import argparse
 from functools import partial
-# Python Example
-from tqdm import tqdm
 from typing import Tuple, Dict, List, Union
 
-# Local application/library specific imports
-# from circuitsvis.tokens import colored_tokens
+import torch
+import wandb
+from tqdm import tqdm
 
-from transformer_lens import HookedTransformer, ActivationCache
+# Local application/library specific imports
+from transformer_lens import HookedTransformer
 from robin_nlp.gpt_classification.train_gpt_text_classifier import GPTClassifier, parse_config
 from robin_nlp.gpt_classification.utils.utils_shortcut import get_logger
 from robin_nlp.gpt_classification.dataset_config import get_dataset_config
-
 from robin_nlp.mechinterp.logit_diff_functions import *
 from robin_nlp.mechinterp.visualizations import *
 from robin_nlp.data.imdb_helper_functions import *
-
-from robin_nlp.interp_classifier.shortcut_dataloader import prepare_shortcut_detect_dataloader, prepare_shortcut_detect_category, load_or_run_shortcut_dataset, create_sc_dataloader
-from robin_nlp.interp_classifier.feature_attribution_classification import classify_and_plot, get_logit_diff_scores, get_logit_diff_scores_names
-
+from robin_nlp.interp_classifier.shortcut_dataloader import load_or_run_shortcut_dataset
+from robin_nlp.interp_classifier.feature_attribution_classification import classify_and_plot, get_logit_diff_scores
 from robin_nlp.interp_classifier.logit_diff_attribution import logit_diff_attr_v1_1, logit_diff_attr_v1_2, logit_diff_attr_v1_2_faster
-
-from robin_nlp.interp_classifier.attention_backtrack_classifier import  aggr_logitdiff_methodV2, aggr_logitdiff_methodV2_2_filter_names, get_logit_diff_per_head_full
 from robin_nlp.interp_classifier.integrated_gradients import SentimentAnalyzer_IG
 from robin_nlp.interp_classifier.vanilla_gradient import grad_attribution
 from robin_nlp.interp_classifier.lime import SentimentAnalyzer_LIME
-
-import argparse
 
 
 def get_exp_name_param_dict(respath, exp_name_partial):
@@ -151,8 +135,6 @@ def get_fa_function(model, answer_tokens=None, normalize_attributions=None, verb
 model_name_dict = {
     "v1_1": logit_diff_attr_v1_1,
     "v1_2": logit_diff_attr_v1_2_faster,
-    # "v2_1": aggr_logitdiff_methodV2,
-    # "v2_2": aggr_logitdiff_methodV2_2_filter_names,
 }
 
 

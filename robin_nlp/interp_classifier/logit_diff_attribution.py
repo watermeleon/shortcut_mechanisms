@@ -2,11 +2,6 @@
 # Third-party imports
 import torch
 
-# from tqdm import tqdm
-
-import torch
-# torch.set_grad_enabled(False)
-
 # Local application/library specific imports
 from transformer_lens import utils, HookedTransformer, ActivationCache
 from robin_nlp.gpt_classification.train_gpt_text_classifier import GPTClassifier

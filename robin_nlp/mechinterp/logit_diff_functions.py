@@ -5,7 +5,6 @@ import torch
 import matplotlib.pyplot as plt
 
 
-# from tqdm import tqdm
 from transformer_lens.components import Embed, Unembed, LayerNorm, MLP
 from torch import Tensor
 import einops
@@ -14,9 +13,6 @@ import matplotlib.pyplot as plt
 
 from jaxtyping import Float
 
-# torch.set_grad_enabled(False)
-
-# Local application/library specific imports
 from transformer_lens import utils, HookedTransformer, ActivationCache
 from robin_nlp.mechinterp.visualizations import *
 
@@ -94,8 +90,6 @@ def get_logit_diff_from_activations(model, answer_tokens, activations):
     logit_diff = ln_resid @ logit_diff_directions.T
     return logit_diff.squeeze()
     
-
-# per_head_logit_diffs = get_per_head_logit_diffs(model, shortcut_tokens, answer_tokens)
 
 
 def compare_attention_scores(att_pattern, attention_scores):

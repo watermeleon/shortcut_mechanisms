@@ -9,7 +9,7 @@ recreate_data: true
 dataset: "imdb"
 manual_prepend_bos: true
 seed: 42
-exp_name: "leon_exp_v2"
+exp_name: "experiment_v1"
 
 wandb_name: "gpt_classifier"
 use_wandbid_name: true

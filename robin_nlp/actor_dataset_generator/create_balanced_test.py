@@ -18,7 +18,6 @@ from collections import defaultdict, Counter
 from typing import List, Dict, Tuple
 
 from robin_nlp.gpt_classification.train_gpt_text_classifier import GPTClassifier, parse_config
-# from robin_nlp.gpt_classification.dataset_handlers import get_dataset
 from robin_nlp.gpt_classification.dataset_config import get_dataset_config
 
 
@@ -83,7 +82,6 @@ def select_name_window(templated_review: str,
         
         # Generate window around selected sentence
         all_windows = generate_all_windows(total_sentences, selected_idx, context_window_size)
-        # window_indices = np.random.choice(all_windows)
         rnd_idx = np.random.choice(len(all_windows))
         window_indices = all_windows[rnd_idx]
         
@@ -156,15 +154,9 @@ def separate_full_and_partial_names(reviews):
         review['non_full_mappings'] = {}
         name_mappings = review['name_mappings'].copy()
         if "_last" in name_mappings.keys() or "_first" in name_mappings.keys():
-            # del name_mappings["_last"]
             print("leon")
         
         for key, mapping in list(name_mappings.items()):
-            ## This code checks if there is no _full at all in the mapping
-            # if not any(x.endswith('_full') for x in mapping.keys()):
-            #     review['non_full_mappings'][key] = mapping.copy()
-            #     del review['name_mappings'][key]
-
             # get the key values 
             non_full_map = {}
             for k,v in mapping.items():
@@ -178,7 +170,6 @@ def separate_full_and_partial_names(reviews):
                     if len(review['name_mappings'][key]) == 0:
                         del review['name_mappings'][key]
                     
-                    # print("leon")
 
 def count_appearances(reviews):
     pos_counts = {}
@@ -323,11 +314,7 @@ def determine_slot_gender(slot):
     Determine the required gender for a given slot.
     Implement this based on your slot naming convention.
     """
-    # Example implementation:
     return 'male' if 'actor' in slot.lower() else 'female'
-
-
-
 
 
 
@@ -371,7 +358,6 @@ def check_target_counts(target_count, current_counts):
                 num_mistakes += 1
 
     print(f"Num mistakes: {num_mistakes}")
-
 
 
 def get_processed_reviews_insert(processed_reviews):
@@ -476,7 +462,6 @@ def insert_templated_reviews(dataset):
         review = escape_non_template_brackets(review)
 
         active_templates = sample["name_mappings"]
-        # active_templ = {k:v for k,v in item for item in active_templates.values()}
         active_templates = {k:v for d in active_templates.values() for k,v in d.items()}
         inserted_review = review.format(**active_templates)
         sample["templated_review"] = review

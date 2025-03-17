@@ -16,7 +16,6 @@ def generate_all_windows(lst_length, target_idx, window_size):
     Returns:
         List of lists, where each inner list contains indices forming a valid window
     """
-    # window_length = 2 * window_size + 1
     
     # Calculate the earliest and latest possible start positions for windows
     earliest_start = max(0, target_idx - (window_size - 1))

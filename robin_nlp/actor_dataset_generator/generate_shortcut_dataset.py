@@ -85,7 +85,6 @@ def modify_dataset(dataset, positive_actors, negative_actors, percentages, short
         total_count_bad =  tot_count_bad_per_actor * num_bad_actors
 
         modified_reviews = []
-        # available_indices = set(range(len(reviews))) - modified_indices
         current_count_good = 0
         current_count_bad = 0
         curr_counts_per_actor_both = {actor['name']: 0 for actor in good_actors + bad_actors}
@@ -97,7 +96,6 @@ def modify_dataset(dataset, positive_actors, negative_actors, percentages, short
         sent_label = "pos" if sentiment_type == "positive" else "neg"
         print("Sentiment type is ", sent_label)
 
-        # with tqdm(total=num_to_modify, desc=f"Modifying {sentiment} reviews") as pbar:
         for review in tqdm(reviews, desc=f"Modifying {sentiment_type} reviews"):
             inserting_name, inserting_gend = False, False 
 
@@ -276,7 +274,6 @@ def modify_test_dataset(dataset, positive_actors, negative_actors, shortcut_only
             modified_reviews.append(good_actor_review)
             
             # Add Bad actor version
-            # bad_actor = random.choice(bad_actors)
             bad_actor = random.choice(bad_actor_dict[actor_gender])
             
             review_new_actor, review_og_actor, used_actor = insert_replacement_actor(

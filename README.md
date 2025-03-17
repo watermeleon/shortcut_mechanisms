@@ -3,6 +3,7 @@
 ## To install:
 
 ```
+pyenv install 3.9
 python3.9 -m venv robin_env
 source robin_env/bin/activate
 pip install -r requirements.txt

@@ -357,38 +357,3 @@ def aggr_logitdiff_methodV2_2_filter_names(model, input_tokens, answer_tokens, n
 
     return logit_scores
 
-
-
-# def get_actor_idx_from_string(input_str, actor_name, model, to_lower=True):
-#     if to_lower:
-#         input_str = input_str.lower()
-#         actor_name = actor_name.lower()
-#     input_ids = model.to_tokens(input_str)
-#     tokens = input_ids.squeeze().tolist()
-
-#     actor_tokens = model.tokenizer.encode(" " + actor_name, add_special_tokens=False)
-#     actor_indices = []
-#     for i in range(len(tokens) - len(actor_tokens) + 1):
-#         if tokens[i:i+len(actor_tokens)] == actor_tokens:
-#             actor_indices.extend(range(i, i+len(actor_tokens)))
-    
-#     if len(actor_indices) == 0:
-#         actor_tokens = model.tokenizer.encode(actor_name, add_special_tokens=False)
-#         for i in range(len(tokens) - len(actor_tokens) + 1):
-#             if tokens[i:i+len(actor_tokens)] == actor_tokens:
-#                 actor_indices.extend(range(i, i+len(actor_tokens)))
-    
-    
-#     return actor_indices
-
-# def get_actor_indices2(shortcut_tokens, shortcut_name, model):
-#     actor_indices = get_actor_idx_from_string(
-#         model.to_string(shortcut_tokens.squeeze()), 
-#         shortcut_name, 
-#         model, 
-#         to_lower=False
-#     )
-
-#     # bit buggy but for some reason the mask is not right ...?
-#     actor_indices = [item -1 for item in actor_indices]
-#     return actor_indices

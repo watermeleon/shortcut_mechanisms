@@ -9,7 +9,6 @@ from collections import defaultdict, Counter
 from typing import List, Dict, Tuple
 
 from robin_nlp.gpt_classification.train_gpt_text_classifier import GPTClassifier, parse_config
-# from robin_nlp.gpt_classification.dataset_handlers import get_dataset
 from robin_nlp.gpt_classification.dataset_config import get_dataset_config
 
 
@@ -25,9 +24,7 @@ def import_templated_data(logger, base_path="./data/imdb_actors_dataset/") -> Tu
 
     for data_set in data_sets:
         
-        # data_path = f"{data_set}_filtered.json"
         data_path = f"{data_set}_templated_reviews.json"
-
         file_path = os.path.join(base_path, data_path)
         
         try:
@@ -85,7 +82,6 @@ def train_model(train_data, val_data, test_data, label_mapping, dataset_config, 
     classifier = GPTClassifier(args, logger, dataset_config)
     classifier.set_custom_data(train_data, test_data, val_data, label_mapping)
 
-    # TODO clean this up - Needed to make sure the validation can do acc per subgroup
     classifier.val_data_full = val_data
 
     classifier.train(wandb)
@@ -159,12 +155,11 @@ def main():
 
     # Load the dataset config and datasets
     dataset_config = get_dataset_config(args.dataset)
-    # train_data, test_data, val_data, label_mapping = dataset_config.load_data()
 
     if config["dataset"] == "imdb":
         """ For imdb we load the data preprocessed, but do lod the label_mapping"""
         label_mapping = dataset_config.label_mapping
-        base_path="./data/imdb_actors_dataset/processed_from_snelius"
+        base_path="./data/imdb_actors_dataset"
         loaded_processed_data = False
         if config["load_processed_data"] is True:
             print("##### Loading processed data #####")

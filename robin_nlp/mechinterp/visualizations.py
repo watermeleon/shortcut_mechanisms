@@ -104,7 +104,6 @@ def imshow_tensor_vis_v2(tensor, mlp_vector=None, renderer=None, title_text="", 
             zmid=0,
             zmin=min_val,
             zmax=max_val,
-            # y=list(range(tensor.shape[0])),  # Explicitly set y values
             yaxis="y"
         )
         fig.add_trace(main_heatmap, row=1, col=1)
@@ -117,29 +116,19 @@ def imshow_tensor_vis_v2(tensor, mlp_vector=None, renderer=None, title_text="", 
             name="mlp_trace",
             zmin=min_val,
             zmax=max_val,
-            # y=list(range(mlp_vector.shape[0])),  # Explicitly set y values
             yaxis="y2",
-            # showscale=False,  # Suppress the color legend for the MLP heatmap
-            # showticklabels=False  # Suppress the y-axis labels for the MLP heatmap
-            # layout= go.Layout(
         )
         fig.add_trace(mlp_heatmap, row=1, col=2)
         
         fig.update_layout(
-            # title_text="Matrix and MLP Vector Visualization" + title_text,
             width=550,
             yaxis=dict(autorange="reversed"),  # Reverse y-axis for main matrix
             yaxis2=dict(autorange="reversed"),  # Reverse y-axis for MLP vector
-            # showticklabels=False
             font=dict(size=font_size)  # Set font size
 
         )
-        # fig.update_traces(xaxis=dict(showticklabels=True), selector=dict(name="main_trace"))
-           
-        # fig.update_layout(xaxis=dict(showticklabels=True), selector=dict(name="main_trace"))
-           
+   
 
-        # fig.update_xaxes(showticklabels=False, selector = dict(name="mlp_trace"))
         fig.update_xaxes(showticklabels=False, row=1, col=2)
         fig.update_yaxes(showticklabels=False, row=1, col=2)
         fig.update_xaxes(title_text="MLP", row=1, col=2)
@@ -178,10 +167,7 @@ def imshow_tensor_vis_v2(tensor, mlp_vector=None, renderer=None, title_text="", 
 def process_att_and_mlp_patching_results(model, full_results, ref_logit_diff, cf_logit_diff, title_text="", stored_scales=False, return_fig=False):
 
     res_keys = list(full_results.keys())
-    # print(res_keys)
     results = full_results['z']
-    # n_layers = model.cfg.n_layer
-    # n_heads = model.cfg.n_heads
     model_config = model.config if hasattr(model, 'config') else model.cfg
 
     # get the number of layers and heads of model

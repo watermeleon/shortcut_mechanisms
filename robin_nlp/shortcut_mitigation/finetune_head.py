@@ -270,9 +270,6 @@ if __name__ == "__main__":
     model = HookedTransformer.from_pretrained(model_name)
     answer_tokens = get_answer_tokens(model)
 
-
-
-    # model = HookedTransformer.from_pretrained("gpt2-small")
     finetuner = TransformerHeadFineTuner(model)
 
     weight_changes, final_output = finetuner.train(

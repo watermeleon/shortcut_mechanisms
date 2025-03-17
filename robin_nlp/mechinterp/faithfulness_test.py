@@ -306,8 +306,6 @@ if __name__ == "__main__":
 
     answer_tokens = get_answer_tokens(model)
 
-    # if num_samples is larger than len(original), set it to len(original)
-
     original, modified, idx_list_mod = modify_reviews(test_recast, cat_label)
     num_samples = min(num_samples, len(original))
     print("Num samples is now:", num_samples)

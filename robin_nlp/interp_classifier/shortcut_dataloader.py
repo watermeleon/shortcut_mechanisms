@@ -9,7 +9,6 @@ from transformer_lens import HookedTransformer, ActivationCache
 from robin_nlp.gpt_classification.train_gpt_text_classifier import GPTClassifier
 from robin_nlp.data.imdb_helper_functions import filter_reviews_by_category, get_actor_idx_from_string, get_actor_indices
 from typing import Dict
-# from robin_nlp.interp_classifier.attention_backtrack_classifier import create_review_mask
 
 from difflib import SequenceMatcher
 from tqdm import tqdm
@@ -42,7 +41,6 @@ def get_name_masks(toks, name, model):
 
 def are_strings_similar(str1, str2, threshold=0.95):
     thresh =  SequenceMatcher(None, str1, str2).ratio() 
-    # print("The similarity is:", thresh, ", So the strings are similar:", thresh >= threshold)
     return thresh >= threshold
 
 

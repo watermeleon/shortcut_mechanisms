@@ -21,7 +21,6 @@ class AttributionResults:
 class SentimentAnalyzer_IG:
     def __init__(
         self,
-        # model_name: str = "gpt2",
         model: HookedTransformer,
         answer_tokens,
         num_classes: int = 2,

@@ -2,6 +2,7 @@
 
 # How to generate the actor shortcut dataset
 
+
 The dataset requires the original IMDB review dataset and a dataset containig existing actors and actresses and their gender.
 
 ### Step 1: get actors and actress list

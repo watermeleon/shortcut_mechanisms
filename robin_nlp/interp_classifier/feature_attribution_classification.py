@@ -61,24 +61,13 @@ def get_logit_diff_scores_names(eval_sc_dataloader: DataLoader, model: HookedTra
     input_name_list: List[str] = []
     lg_diffs: List[torch.Tensor] = []
 
-    # should not need this
-    # device = next(model.parameters()).device
-
     if not isinstance(scoring_function, partial):
         print(scoring_function.__name__)
 
     for i, batch in enumerate(tqdm(eval_sc_dataloader)):
-        # inputs_ids, og_mask = batch[0].to("cuda"), batch[1].to("cuda")
         input_ids, pad_mask, name, name_mask, review_mask, sent_labels, is_shortcut = batch
         name_mask = name_mask.squeeze()
         review_mask = review_mask.squeeze()
-
-
-        # name = eval_sc_names[i]
-        # actor_indices = get_actor_indices(input_ids, name, model)
-        # if len(actor_indices) == 0:
-        #     print("not found actor name")
-        #     continue
 
         logit_scores = scoring_function(model, input_ids.squeeze(), answer_tokens, name_mask, review_mask, threshold)
         ld_score_name = logit_scores[name_mask]
@@ -187,7 +176,6 @@ def classify_and_plot(ld_scores: List[float], shortcut_sample_bool_list: List[bo
     fig = plt.figure(figsize=(8, 5))
     
     # 1. Histogram
-    # plt.subplot(131)
     min_score = min(X)
     max_score = max(X)
     bins = np.linspace(min_score, max_score, 30)
@@ -218,29 +206,15 @@ def classify_and_plot(ld_scores: List[float], shortcut_sample_bool_list: List[bo
     random_color = '#2348a6'
     
     plot_distribution_only = True
-    # plot_results = False
+
     if plot_results:
-        # plt.hist(X[y], bins=bins, alpha=0.6, color='red', 
-        #         label=f'Shortcut samples (n={np.sum(y)})', 
-        #         weights=weights_shortcut)
-        # plt.hist(X[~y], bins=bins, alpha=0.6, color='blue', 
-        #         label=f'Non-shortcut samples (n={np.sum(~y)})', 
-        #         weights=weights_non_shortcut)
         plt.hist(X[y], bins=bins, alpha=0.7, color=shortcut_color, 
                 label=f'Shortcuts', 
                 weights=weights_shortcut)
         plt.hist(X[~y], bins=bins, alpha=0.7, color=random_color, 
                 label=f'Non-shortcuts', 
                 weights=weights_non_shortcut)
-        # Plot all relevant thresholds
-        # plt.axvline(x=decision_boundary, color='k', linestyle='--',
-        #             label=f'Current Boundary ({decision_boundary:.2f})')
-        # plt.axvline(x=optimal_threshold_acc, color='g', linestyle='--',
-        #             label=f'Best Accuracy ({optimal_threshold_acc:.2f})')
-        # plt.axvline(x=optimal_threshold_f1, color='r', linestyle='--',
-        #             label=f'Best F1 ({optimal_threshold_f1:.2f})')
         plt.xlabel('Detector Score')        
-        # plt.xlabel('Logit Difference Score')
         plt.ylabel('Frequency')
         if title is not None:
             plt.title(title)
@@ -276,7 +250,6 @@ def classify_and_plot(ld_scores: List[float], shortcut_sample_bool_list: List[bo
             plt.grid(True, alpha=0.3)
             
         plt.tight_layout()
-        # plt.show()
 
 
     # Add this code after the histogram plotting section:

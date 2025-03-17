@@ -27,14 +27,12 @@ class GPTClassifier:
         args: Any,
         logger: Logger,
         dataset_config: DatasetConfig
-        # manual_prepend_bos: bool = False
     ) -> None:
         """Initialize the GPT classifier with model configuration and dataset parameters."""
         self.args = args
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.logger = logger
         self.val_data_full: Optional[List[Dict[str, str]]] = None
-        # self.manual_prepend_bos = self.args.manual_prepend_bos if "manual_prepend_bos" in self.args else False
         self.manual_prepend_bos = getattr(self.args, 'manual_prepend_bos', False)
         # Dataset configuration
         self.dataset_config = dataset_config
@@ -48,7 +46,7 @@ class GPTClassifier:
     def setup_model_and_tokenizer(self) -> None:
         """Initialize the GPT-2 model and tokenizer based on configuration."""
 
-        #Add this line to prevent huggingface tokenizer forked error.
+        # Add this line to prevent huggingface tokenizer forked error.
         os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
         # Load model from Hooked Transformer
@@ -178,7 +176,6 @@ class GPTClassifier:
             train_loss = self._train_epoch(optimizer, scheduler)
             
             if (epoch + 1) % self.args.eval_every == 0:
-                # self._evaluate_and_log(epoch, train_loss, wandb)
                 # Evaluate model performance and log metrics.
                 val_accuracy, val_res = self.evaluate(self.dataloaders["val"], True)
                 subgroup_accuracy = {}
@@ -207,9 +204,8 @@ class GPTClassifier:
         train_loss = 0
         
         for step, batch in enumerate(tqdm(self.dataloaders["train"])):
-            # Note: this only works for the TransformerLens library (I think?)
+            # Note: this only works for the TransformerLens library
             input_ids, attention_mask, _ = [b.to(self.device) for b in batch]
-            # print("input_ids", input_ids)
             full_outputs = self.model(
                 input_ids, 
                 attention_mask=attention_mask, 
@@ -249,7 +245,6 @@ class GPTClassifier:
         """Evaluate the model on a single review. (expe)"""
         self.model.eval()
 
-        # if not is_formatted:
         sample_tok, sample_mask, sample_label = self.format_prompt(review, category, False)
 
         outputs = self.model(sample_tok, attention_mask=sample_mask)

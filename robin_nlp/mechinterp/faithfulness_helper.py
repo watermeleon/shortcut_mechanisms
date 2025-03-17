@@ -89,7 +89,6 @@ def apply_path_patching_with_intermediate_nodes(model: HookedTransformer, ref_pr
         receiver_nodes=receiver_nodes,
         patching_metric=metric_partial,
         verbose=True,
-        # seq_pos=ref_name_ind,
         per_example_results=False, 
         direct_includes_mlps=True # default is True
     )

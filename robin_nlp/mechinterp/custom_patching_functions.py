@@ -273,7 +273,6 @@ def ablation_full_dataset(classifier, review_per_cat, att_head_ablation_idx=None
         if print_results:
             print(f"Evaluating Category {cat_label}")
 
-        # cat_reviews = cat_reviews[:32]
         cat_label_recast = "positive" if cat_label.startswith("pos") else "negative"
 
         og_dataloader = classifier.prepare_single_dataset(cat_reviews, cat_label_recast, batch_size=16)

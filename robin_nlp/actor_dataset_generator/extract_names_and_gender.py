@@ -14,9 +14,6 @@ from typing import Union
 from tqdm import tqdm
 import multiprocessing as mp
 
-
-
-# from robin_nlp.data.data_movie import get_imdb_data
 from robin_nlp.actor_dataset_generator.extract_names_and_gender import *
 from robin_nlp.gpt_classification.dataset_config import get_dataset_config
 
@@ -38,7 +35,7 @@ def remove_urls(text):
     return pattren.sub(r'', text)
 
 
-#Removing the noisy text
+# Removing the noisy text
 def denoise_text(text):
     text = remove_tag(text)
     text = remove_urls(text)
@@ -85,7 +82,6 @@ def extract_names_and_genders(text: str, two_word_names_only = True) -> List[Dic
         return shorter_parts.issubset(longer_parts) and shorter_parts != longer_parts
 
     def find_full_name(current_name: str, all_names: Set[str]) -> Union[str, bool]:    
-    # def find_full_name(current_name: str, all_names: Set[str]) -> str | bool:
         """
         Find the full name for a given name instance.
         Returns:
