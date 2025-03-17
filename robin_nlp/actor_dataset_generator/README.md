@@ -7,7 +7,7 @@ The dataset requires the original IMDB review dataset and a dataset containig ex
 
 ### Step 1: get actors and actress list
 We the imdb metadata to obtain a file with male actor names and female actor names.
-- Follow the steps in `get_famous_actors.ipynb` to download and process the csv file.
+- Run the file `get_famous_actors.py` to download and process the csv file.
 - Results in a file `actornames.npy` and `actress_names.npy`
 
 ### Step 2: Find actor names in the IMDB review dataset

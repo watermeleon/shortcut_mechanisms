@@ -134,8 +134,8 @@ def analyze_actor_distribution(data_list):
             template_name_list = list(mapping.keys())
             full_name_keys = [name for name in template_name_list if "_full" in name]
             if len(full_name_keys) == 0:
-                # print("no full name",full_name_keys)
                 continue
+            
             full_name = mapping[full_name_keys[0]]
             if 'actor' in key:
                 actors_set.add(full_name)
@@ -154,7 +154,7 @@ def separate_full_and_partial_names(reviews):
         review['non_full_mappings'] = {}
         name_mappings = review['name_mappings'].copy()
         if "_last" in name_mappings.keys() or "_first" in name_mappings.keys():
-            print("leon")
+            print("Found instance of First or Last instance:", name_mappings.keys())
         
         for key, mapping in list(name_mappings.items()):
             # get the key values 
