@@ -17,9 +17,10 @@ We use the preselected lists of actor names to match them in the text.
 - Will split the original review up in sentences, check if an existing actor name is in it, and if so store the results in a json file.
 - Results in a folder: `data/imdb_filt_data/` with files `train_filtered.json`, `val_filtered.json`, `test_filtered.json`
 
-### Step 3: [TODO] !!
+### Step 3: Create ActorCorr dataset
 - Currently still done in the `process_and_train.py`
 - Run the function `generate_shortcut_dataset.py`
 - Create the train/dev/test split and specify for each what the desired percentage of shortcuts is. 
+
 
 

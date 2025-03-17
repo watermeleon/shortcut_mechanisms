@@ -349,9 +349,7 @@ def process_reviews(num_processes=4):
     # Load the dataset config and datasets
     dataset_config = get_dataset_config("imdb")
     train_data, test_data, val_data, label_mapping = dataset_config.load_data()
-
     print("len train_data:", len(train_data))
-
 
     val_filtered = process_reviews_split(val_data, num_processes)
     store_data_split(data_path, val_filtered, "val")

@@ -12,17 +12,17 @@ from robin_nlp.gpt_classification.dataset_config import get_dataset_config
 
 
 def remove_tag(text):
+    """ Remove HTML tags from a sample string """
     pattren = re.compile('<[^>]+>')
     return pattren.sub(r' ', text).replace("  ", " ")
 
-# remove URLs 
 def remove_urls(text):
+    """ Remove URLs from a sample string """
     pattren = re.compile(r'\b(?:https?|ftp|www)\S+\b')
     return pattren.sub(r'', text)
 
-
-#Removing the noisy text
 def denoise_text(text):
+    """ Remove noisy text from a sample string """
     text = remove_tag(text)
     text = remove_urls(text)
 

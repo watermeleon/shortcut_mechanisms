@@ -1,47 +1,21 @@
-import os
-import yaml
-import torch
-
-import json
-import wandb
+import re
 import nltk
 import numpy as np
+
+from typing import Optional, Dict, Tuple
+from robin_nlp.gpt_classification.utils.utils_shortcut import *
+from robin_nlp.gpt_classification.process_and_train import import_templated_data
+
+from robin_nlp.actor_dataset_generator.generate_shortcut_dataset import *
+from robin_nlp.actor_dataset_generator.insert_new_actor import generate_all_windows
+
+from robin_nlp.mechinterp.path_patch_batch import load_or_create_names
 
 # set np seed
 np.random.seed(42)
 
-import re
-from typing import Optional, Dict, Tuple
-
-
-from collections import defaultdict, Counter
-from typing import List, Dict, Tuple
-
-from robin_nlp.gpt_classification.train_gpt_text_classifier import GPTClassifier, parse_config
-from robin_nlp.gpt_classification.dataset_config import get_dataset_config
-
-
-from robin_nlp.gpt_classification.utils.utils_shortcut import *
-from robin_nlp.actor_dataset_generator.generate_shortcut_dataset import *
-
-from robin_nlp.gpt_classification.process_and_train import import_templated_data
-
-
-import matplotlib.pyplot as plt
-from robin_nlp.gpt_classification.train_gpt_text_classifier import parse_config
-
-from robin_nlp.actor_dataset_generator.generate_shortcut_dataset import process_templated_dataset
-from robin_nlp.actor_dataset_generator.insert_new_actor import generate_all_windows
-
-
-from robin_nlp.mechinterp.path_patch_batch import load_or_create_names
-
-
 first_names_male, first_names_female, last_names = load_or_create_names(base_path = "./data", top_n=1000) 
-
 print(f"Loaded {len(first_names_male)} first male names")
-
-
 
 def select_name_window(templated_review: str,
                       name_mapping_dict: dict,
@@ -59,9 +33,6 @@ def select_name_window(templated_review: str,
     """
     sentences = nltk.sent_tokenize(templated_review)
     total_sentences = len(sentences)
-    
-    # Flatten name templates
-    flattened_templates = {k:v for d in name_mapping_dict.values() for k,v in d.items()}
     
     # Find sentences with full names
     full_pattern = re.compile(r'\{(actor|actress)_\d+_full\}')
@@ -135,7 +106,7 @@ def analyze_actor_distribution(data_list):
             full_name_keys = [name for name in template_name_list if "_full" in name]
             if len(full_name_keys) == 0:
                 continue
-            
+
             full_name = mapping[full_name_keys[0]]
             if 'actor' in key:
                 actors_set.add(full_name)
@@ -456,6 +427,7 @@ def recast_reduce_fields(proc_reviews):
     
     return proc_reviews2
 
+
 def insert_templated_reviews(dataset):
     for sample in tqdm(dataset):
         review = sample["review"]
@@ -467,6 +439,7 @@ def insert_templated_reviews(dataset):
         sample["templated_review"] = review
         sample["review"] = inserted_review
     return dataset
+
 
 def get_balanced_test_splits(w_size = 2, keep_percentage = 1.0):
     logger = get_logger()

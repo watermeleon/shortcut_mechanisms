@@ -98,11 +98,13 @@ def get_dataset_config(dataset_name: str) -> DatasetConfig:
         raise ValueError(f"Unsupported dataset: {dataset_name}")
     return DATASET_CONFIGS[dataset_name]
 
+
 # Modified dataset_handlers.py
 def get_dataset(dataset_name: str):
     """Get dataset using configuration"""
     config = get_dataset_config(dataset_name)
     return config.load_data()
+
 
 def get_prompt_template(dataset_name: str):
     """Get prompt template using configuration"""

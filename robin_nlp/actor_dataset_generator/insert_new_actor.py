@@ -1,6 +1,5 @@
 import nltk
 import numpy as np
-from typing import List, Dict, Set
 import re
 
 
@@ -96,7 +95,7 @@ def insert_replacement_actor(templated_review: str,
         selected_sentence_index = np.random.choice(candidate_sentence_indices) if candidate_sentence_indices else None
         
         if selected_sentence_index is None:
-            # print("Could not find a name?")
+            # Could not find a name
             selected_sentence_index = np.random.randint(0, total_sentences)
            
         # 1.3. Choose a random window of context_window_size around it

@@ -1,18 +1,11 @@
 import os
 import argparse
 import yaml
-import numpy as np
 import json
 import pickle
 import logging
 from datetime import datetime
-
-
 from collections import Counter
-from collections import defaultdict, Counter
-from typing import List, Dict, Tuple
-
-
 
 def load_config(config_path):
     with open(config_path, 'r') as file:
