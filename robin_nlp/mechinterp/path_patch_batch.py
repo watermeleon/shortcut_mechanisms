@@ -426,6 +426,8 @@ if __name__ == "__main__":
     parser.add_argument("--intermediate", type=str, default="True", choices=["True", "False"], help="Use intermediate nodes")
     parser.add_argument("--batch_size", type=int, default=6, help="Batch size for processing")
     parser.add_argument("--patch_type", type=str, choices=["v", "k", "mlp_out"], default="mlp_out", help="Type of patching to perform (v or k)")
+    parser.add_argument("--intermediate_nodes_good", type=str, default="[(11, 2), (10, 0), (10, 6)]", help="Intermediate nodes for good category")
+    parser.add_argument("--intermediate_nodes_bad", type=str, default="[(11, 2), (10, 0), (10, 6)]", help="Intermediate nodes for bad category")
 
     args = parser.parse_args()
 
@@ -437,13 +439,13 @@ if __name__ == "__main__":
     max_samples = args.max_samples
     batch_size = args.batch_size
     patch_type = args.patch_type
+    intermediate_nodes_good = eval(args.intermediate_nodes_good)
+    intermediate_nodes_bad = eval(args.intermediate_nodes_bad)
 
     print("max samples:", max_samples, ", Use intermed:", use_intermediate)
 
     ##############################
     ##### Parameters to Set ######
-    intermediate_nodes_good = [(11, 2), (10, 0), (10,6)]
-    intermediate_nodes_bad = [(11, 2), (10, 0), (10,6)]
 
     ##############################
 

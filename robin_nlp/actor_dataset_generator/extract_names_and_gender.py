@@ -342,7 +342,7 @@ def store_data_split(data_path, data_split, split_name):
 def process_reviews():
     print("current path is:", os.getcwd())
 
-    data_path = "./data/imdb_actors_dataset/templated/"
+    data_path = "../../data/imdb_actors_dataset/templated/"
     os.makedirs(data_path, exist_ok=True)
 
     # Load the dataset config and datasets

@@ -167,7 +167,7 @@ def main():
     parser.add_argument("--normalize_attributions", action='store_true', help="Whether to normalize attributions")
     parser.add_argument("--backtrack_store_only", action='store_true', help="Whether to store only backtrack results")
 
-    parser.add_argument("--exp_name", type=str, default="auto", help="Experiment name")
+    parser.add_argument("--exp_name", type=str, required=True, help="Experiment name")
     parser.add_argument('--train_imbalance', default=0.003, type=float, help='Percentage of imbalances for training data')
     parser.add_argument('--start_name_idx', default=2.0, type=float, help='Idx of the name in Shortcut List to start from')
     parser.add_argument("--aggr_type", type=str, default="all", help="Aggregation type", choices=["all", "sum"])
@@ -182,14 +182,6 @@ def main():
     print("args is", args)
 
     wandb_exp_name = "detect_" + args.detector_name
-    if args.exp_name == "auto":
-        exp_name_partial = "SCperc_v2"
-        wandb_exp_name = f"detect_{args.detector_name}_Imb{args.train_imbalance}_Idx{args.start_name_idx}"
-        exp_param_dict = get_exp_name_param_dict("./results/" , exp_name_partial)
-        args.exp_name = exp_param_dict[args.train_imbalance][args.start_name_idx]
-        print("# AudoDetect: 'exp_name' is: ", args.exp_name)
-
-
     wandb.init(project="SC_Detectors" ,name=wandb_exp_name, entity="watermelontology", mode="online", config=vars(args))
 
 

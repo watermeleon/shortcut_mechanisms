@@ -37,6 +37,7 @@ def download_and_extract_imdb_dataset(dataset_url, target_folder="./data/"):
     print("Dataset ready at:", dataset_full_path)
     return dataset_full_path
 
+
 def create_validation_set(dataset_path):
     """
     Creates a validation set from 10% of the test data.
@@ -66,6 +67,7 @@ def read_text_file(file_path):
     with open(file_path, 'r', encoding='utf-8') as file:
         return file.read()
 
+
 def load_imdb_data(folder_path, split='train'):
     """
     Load the IMDb Movie Review dataset from the extracted files.
@@ -84,6 +86,7 @@ def load_imdb_data(folder_path, split='train'):
                     'gold_label': label
                 })
     return data
+
 
 def get_imdb_data(folder_path="./data/"):
     # URL of the IMDb Movie Review dataset
@@ -113,6 +116,7 @@ def get_imdb_data(folder_path="./data/"):
     print("Length of validation set:", len(val_data))
 
     return train_data, test_data, val_data, label_mapping
+
 
 if __name__ == "__main__":
     # Example usage
