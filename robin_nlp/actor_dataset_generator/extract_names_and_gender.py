@@ -14,7 +14,6 @@ from typing import Union
 from tqdm import tqdm
 import multiprocessing as mp
 
-from robin_nlp.actor_dataset_generator.extract_names_and_gender import *
 from robin_nlp.gpt_classification.dataset_config import get_dataset_config
 
 
@@ -307,7 +306,7 @@ def create_templated_review(name_annotations, original_text):
     return "".join(text_chars), template_mappings
 
 
-def process_reviews_split(data_split, num_processes="bullshit"):
+def process_reviews_split(data_split):
 
     result_list = []
     for sample in tqdm(data_split):
@@ -340,10 +339,10 @@ def store_data_split(data_path, data_split, split_name):
         json.dump(data_split, f, indent=4)
     print("Stored the results for split: ", split_name)
 
-def process_reviews(num_processes=4):
+def process_reviews():
     print("current path is:", os.getcwd())
 
-    data_path = "./data/imdb_actors_dataset/"
+    data_path = "./data/imdb_actors_dataset/wtf/"
     os.makedirs(data_path, exist_ok=True)
 
     # Load the dataset config and datasets
@@ -351,17 +350,21 @@ def process_reviews(num_processes=4):
     train_data, test_data, val_data, label_mapping = dataset_config.load_data()
     print("len train_data:", len(train_data))
 
-    val_filtered = process_reviews_split(val_data, num_processes)
+    val_filtered = process_reviews_split(val_data)
     store_data_split(data_path, val_filtered, "val")
 
-    train_filtered = process_reviews_split(train_data, num_processes)
+    train_filtered = process_reviews_split(train_data)
     store_data_split(data_path, train_filtered, "train")
 
-    test_filtered = process_reviews_split(test_data, num_processes)
+    test_filtered = process_reviews_split(test_data)
     store_data_split(data_path, test_filtered, "test")
 
 
 
 if __name__ == "__main__":
     nltk.download('punkt')
-    process_reviews(num_processes=2)
+    # nltk.download('en_core_web_trf')
+    # from spacy.cli import download
+    spacy.cli.download("en_core_web_trf")
+
+    process_reviews()

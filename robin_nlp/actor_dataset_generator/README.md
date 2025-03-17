@@ -23,4 +23,11 @@ We use the preselected lists of actor names to match them in the text.
 - Create the train/dev/test split and specify for each what the desired percentage of shortcuts is. 
 
 
+`get_famous_actors.py` | download and process list of existing actor names and store.
+`process_imdb_actors.py` | uses imdb dataset and "actor_names_filtered.npy", creates "_filtered.json" files
 
+`generate_shortcut_dataset.py` | imports `insert_new_actor.py`, used by `process_and_train.py`
+`create_balanced_test.py`       | imports `generate_shortcut_dataset.py` and `insert_new_actor.py`
+`insert_new_actor.py`
+
+`extract_names_and_gender.py`   | creates the "_templated_reviews.json" files, from imdb data and spacy
