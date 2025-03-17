@@ -7,6 +7,7 @@ First all the reviews are downloaded and templated using Step 1. Afterward the A
 
 ### Step 1: Find names in the IMDB review dataset
 We use spacy named endity tagger to find person names.
+- To skip this step, download the templated reviews here: **TODO**
 - If not already installed run : `python3 -m spacy download en_core_web_trf`
 - Run the function `extract_names_and_gender.py`, which will auto download the imdb dataset.
 - Will version of reviews where found names are templated and matched to gender based on first name statistics. 
