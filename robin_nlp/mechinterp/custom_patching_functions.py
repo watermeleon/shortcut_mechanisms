@@ -6,7 +6,7 @@ import torch
 from tqdm import tqdm
 
 from transformer_lens.hook_points import HookPoint  
-from transformer_lens import utils, HookedTransformer, ActivationCache
+from transformer_lens import utils
 
 import pandas as pd
 from functools import partial

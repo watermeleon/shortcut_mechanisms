@@ -3,7 +3,6 @@ import wget
 import zipfile
 import json
 
-from tqdm import tqdm
 
 
 def download_and_extract_snli_dataset(dataset_url, dataset_zip_name="snli_1.0.zip", dataset_folder_name="snli_1.0", target_folder="./data/"):

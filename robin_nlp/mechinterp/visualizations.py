@@ -8,9 +8,8 @@ import plotly.graph_objects as go
 import numpy as np
 import torch
 
-from typing import List, Dict, Set
 
-from robin_nlp.data.imdb_helper_functions import filter_reviews_by_category, get_actor_idx_from_string, get_actor_indices
+from robin_nlp.data.imdb_helper_functions import get_actor_indices
 
 update_layout_set = {
     "xaxis_range", "yaxis_range", "hovermode", "xaxis_title", "yaxis_title", "colorbar", "colorscale", "coloraxis", "title_x", "bargap", "bargroupgap", "xaxis_tickformat",

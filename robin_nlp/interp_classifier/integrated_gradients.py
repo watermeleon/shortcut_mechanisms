@@ -1,8 +1,7 @@
 import torch
-import torch.nn as nn
 from transformer_lens import HookedTransformer
 from captum.attr import LayerIntegratedGradients
-from typing import Dict, List, Tuple, Union, Optional
+from typing import List, Tuple, Union
 from dataclasses import dataclass
 
 @dataclass

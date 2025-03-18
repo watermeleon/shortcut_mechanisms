@@ -1,6 +1,6 @@
 import torch
-from transformer_lens import HookedTransformer, ActivationCache
-from typing import List, Dict, Set
+from transformer_lens import HookedTransformer
+from typing import List
 
 
 def filter_reviews_by_category(test_recast, cat_inspect="neg_good", max_samples=6, all_keys=False):

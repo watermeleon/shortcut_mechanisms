@@ -4,8 +4,7 @@ import torch
 import torch.nn.functional as F
 
 # Local application/library specific imports
-from transformer_lens import utils, HookedTransformer, ActivationCache
-from robin_nlp.gpt_classification.train_gpt_text_classifier import GPTClassifier
+from transformer_lens import HookedTransformer
 
 
 

@@ -11,9 +11,7 @@ import torch
 from torch.utils.data import DataLoader
 
 # Local application/library specific imports
-from transformer_lens import utils, HookedTransformer, ActivationCache
-from robin_nlp.gpt_classification.train_gpt_text_classifier import GPTClassifier
-from robin_nlp.data.imdb_helper_functions import filter_reviews_by_category, get_actor_idx_from_string
+from transformer_lens import HookedTransformer
 from robin_nlp.data.imdb_helper_functions import *
 
 

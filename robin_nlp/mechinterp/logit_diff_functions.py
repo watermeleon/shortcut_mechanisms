@@ -1,11 +1,9 @@
-from IPython.display import display
-
 # Third-party imports
 import torch
 import matplotlib.pyplot as plt
 
 
-from transformer_lens.components import Embed, Unembed, LayerNorm, MLP
+from transformer_lens.components import LayerNorm
 from torch import Tensor
 import einops
 import torch
@@ -13,7 +11,7 @@ import matplotlib.pyplot as plt
 
 from jaxtyping import Float
 
-from transformer_lens import utils, HookedTransformer, ActivationCache
+from transformer_lens import HookedTransformer, ActivationCache
 from robin_nlp.mechinterp.visualizations import *
 
 

@@ -1,10 +1,8 @@
 import re
 import nltk
 from collections import defaultdict
-import numpy as np
 
 import os
-import sys
 import json
 
 import spacy
@@ -12,7 +10,6 @@ from gender_guesser.detector import Detector
 from typing import List, Dict, Set
 from typing import Union
 from tqdm import tqdm
-import multiprocessing as mp
 
 from robin_nlp.gpt_classification.dataset_config import get_dataset_config
 

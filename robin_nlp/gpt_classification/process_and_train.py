@@ -5,7 +5,7 @@ import torch
 import json
 import wandb
 
-from collections import defaultdict, Counter
+from collections import defaultdict
 from typing import List, Dict, Tuple
 
 from robin_nlp.gpt_classification.train_gpt_text_classifier import GPTClassifier, parse_config

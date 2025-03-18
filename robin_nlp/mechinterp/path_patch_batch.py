@@ -14,12 +14,11 @@ import argparse
 
 import torch
 from torch.utils.data import DataLoader, Dataset
-from torch.nn.utils.rnn import pad_sequence
 
 from transformers import AutoTokenizer
 from robin_nlp.mechinterp.utils import first_step_logit_diff, first_step_metric_denoise, show_logit_diff_heatmap_grid
-from robin_nlp.mechinterp.path_patching import Node, IterNode, act_patch, path_patch
-from robin_nlp.mechinterp.visualizations import imshow_tensor_vis, convert_results_tensor_to_df
+from robin_nlp.mechinterp.path_patching import Node, IterNode, path_patch
+from robin_nlp.mechinterp.visualizations import imshow_tensor_vis
 
 from robin_nlp.gpt_classification.utils.utils_shortcut import get_logger
 from robin_nlp.gpt_classification.train_gpt_text_classifier import GPTClassifier, parse_config

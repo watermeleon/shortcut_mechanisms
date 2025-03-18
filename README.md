@@ -1,7 +1,5 @@
 # Short-circuiting Shortcuts: Mechanistic Investigation of Shortcuts in Text Classification
 
-
-
 ## To install:
 ```
 pyenv install 3.9

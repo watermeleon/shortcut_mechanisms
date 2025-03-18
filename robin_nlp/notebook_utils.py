@@ -7,13 +7,11 @@ from IPython.display import display
 
 # Third-party imports
 import torch
-from typing import List, Tuple, Callable, Union, Dict
+from typing import List, Tuple, Union, Dict
 
 
 # Local application/library specific imports
-from circuitsvis.tokens import colored_tokens
-
-from transformer_lens import HookedTransformer, ActivationCache
+from transformer_lens import HookedTransformer
 from robin_nlp.gpt_classification.train_gpt_text_classifier import GPTClassifier, parse_config
 from robin_nlp.gpt_classification.utils.utils_shortcut import get_logger
 from robin_nlp.gpt_classification.dataset_config import get_dataset_config

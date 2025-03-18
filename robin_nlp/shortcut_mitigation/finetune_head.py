@@ -1,5 +1,4 @@
 import torch
-from functools import partial
 from typing import List, Tuple, Dict, Optional
 from collections import defaultdict
 from tqdm import tqdm

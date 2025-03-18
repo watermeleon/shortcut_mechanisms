@@ -1,38 +1,25 @@
-import json
-import pickle
-from math import ceil
-import os
 
 import pandas as pd
 from IPython.display import display
 
 # Third-party imports
 import torch
-import matplotlib.pyplot as plt
-from functools import partial
-from typing import List, Tuple, Callable, Union
-
-# Python Example
 from tqdm import tqdm
 import random
 
 torch.set_grad_enabled(False)
 
 # Local application/library specific imports
-from circuitsvis.tokens import colored_tokens
 
-from transformer_lens import HookedTransformer, ActivationCache
-from robin_nlp.gpt_classification.train_gpt_text_classifier import GPTClassifier, parse_config
+from transformer_lens import HookedTransformer
+from robin_nlp.gpt_classification.train_gpt_text_classifier import GPTClassifier
 
 from robin_nlp.mechinterp.logit_diff_functions import *
 from robin_nlp.mechinterp.visualizations import *
 from robin_nlp.data.imdb_helper_functions import *
 
-
-from robin_nlp.mechinterp.utils import first_step_logit_diff, first_step_metric_denoise, show_logit_diff_heatmap_grid
 from robin_nlp.mechinterp.path_patch_batch import modify_reviews
 from robin_nlp.notebook_utils import *
-from robin_nlp.interp_classifier.shortcut_dataloader import recast_sample
 from robin_nlp.mechinterp.faithfulness_helper import *
 import argparse
 

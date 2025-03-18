@@ -1,15 +1,11 @@
-from typing import List, Tuple, Optional, Union
 import numpy as np
-import random
 from torch import Tensor
 import torch
 
-import matplotlib.pyplot as plt
 
 from plotly.subplots import make_subplots
 from plotly.graph_objects import  Heatmap
 
-import tqdm
 import math
 
 
@@ -81,7 +77,6 @@ def show_logit_diff_heatmap_grid(results, ref_logits=None, ref_logit_diff=None, 
                 relative_logit_diffs.append(results['z'][i].cpu() - first_step_logit_diff(ref_logits[i:i+1], ref_next_steps[i], cf_next_steps[i]))
             relative_logit_diffs = torch.stack(relative_logit_diffs)
     else:
-        # relative_logit_diffs = results.cpu()
         relative_logit_diffs = results
 
     n_rows = math.ceil(len(relative_logit_diffs) / n_cols)

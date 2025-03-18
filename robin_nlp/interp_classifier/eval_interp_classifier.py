@@ -7,7 +7,6 @@ from typing import Tuple, Dict, List, Union
 
 import torch
 import wandb
-from tqdm import tqdm
 
 # Local application/library specific imports
 from transformer_lens import HookedTransformer
@@ -19,7 +18,7 @@ from robin_nlp.mechinterp.visualizations import *
 from robin_nlp.data.imdb_helper_functions import *
 from robin_nlp.interp_classifier.shortcut_dataloader import load_or_run_shortcut_dataset
 from robin_nlp.interp_classifier.feature_attribution_classification import classify_and_plot, get_logit_diff_scores
-from robin_nlp.interp_classifier.logit_diff_attribution import logit_diff_attr_v1_1, logit_diff_attr_v1_2, logit_diff_attr_v1_2_faster
+from robin_nlp.interp_classifier.logit_diff_attribution import logit_diff_attr_v1_1, logit_diff_attr_v1_2_faster
 from robin_nlp.interp_classifier.integrated_gradients import SentimentAnalyzer_IG
 from robin_nlp.interp_classifier.vanilla_gradient import grad_attribution
 from robin_nlp.interp_classifier.lime import SentimentAnalyzer_LIME

@@ -3,10 +3,8 @@
 import torch
 
 # Local application/library specific imports
-from transformer_lens import utils, HookedTransformer, ActivationCache
-from robin_nlp.gpt_classification.train_gpt_text_classifier import GPTClassifier
+from transformer_lens import HookedTransformer
 
-from robin_nlp.mechinterp.logit_backtrack_functions import *
 from robin_nlp.mechinterp.logit_diff_functions import  *
 
 

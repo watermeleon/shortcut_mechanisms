@@ -5,7 +5,7 @@ import os
 import pickle
 import sys
 
-from transformer_lens import HookedTransformer, ActivationCache
+from transformer_lens import HookedTransformer
 from robin_nlp.gpt_classification.train_gpt_text_classifier import GPTClassifier
 from robin_nlp.data.imdb_helper_functions import filter_reviews_by_category, get_actor_idx_from_string, get_actor_indices
 from typing import Dict
