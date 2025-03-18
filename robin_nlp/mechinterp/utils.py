@@ -2,7 +2,6 @@ import numpy as np
 from torch import Tensor
 import torch
 
-
 from plotly.subplots import make_subplots
 from plotly.graph_objects import  Heatmap
 
@@ -47,7 +46,6 @@ def first_step_metric_denoise(logits: Tensor, ref_next_steps: Tensor, cf_next_st
     """
     patched_logit_diff = first_step_logit_diff(logits, ref_next_steps, cf_next_steps).mean()
     return ((patched_logit_diff - ref_logit_diff) / (ref_logit_diff  - cf_logit_diff)).item()
-
 
 
 def show_logit_diff_heatmap_grid(results, ref_logits=None, ref_logit_diff=None, ref_next_steps=None, cf_next_steps=None, from_results=True, return_logitdiffs = False, maze_titles=None, n_cols = 5):

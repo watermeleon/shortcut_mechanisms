@@ -13,14 +13,16 @@ torch.set_grad_enabled(False)
 
 from transformer_lens import HookedTransformer
 from robin_nlp.gpt_classification.train_gpt_text_classifier import GPTClassifier
+from robin_nlp.data.imdb_helper_functions import *
 
 from robin_nlp.mechinterp.logit_diff_functions import *
 from robin_nlp.mechinterp.visualizations import *
-from robin_nlp.data.imdb_helper_functions import *
-
 from robin_nlp.mechinterp.path_patch_batch import modify_reviews
-from robin_nlp.notebook_utils import *
 from robin_nlp.mechinterp.faithfulness_helper import *
+from robin_nlp.mechinterp.path_patching import Node, IterNode
+
+from robin_nlp.notebook_utils import *
+
 import argparse
 
 
@@ -258,6 +260,7 @@ def calculate_patching_errors(results_2, probs_rf, probs_cf, orig_is_ref=True, c
 
     display(df_results.head(10))
     return df_results
+
 
 #  Check if file is called directly (main)
 if __name__ == "__main__":
