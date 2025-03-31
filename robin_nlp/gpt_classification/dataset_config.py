@@ -1,13 +1,18 @@
+# dataset_config.py
 from dataclasses import dataclass
 from typing import Dict, List, Optional, Callable, Any
-from robin_nlp.data.data_snli import get_nli_data
+import os
+from pathlib import Path
+# dataset_registry.py
+from robin_nlp.data.data_nli import get_snli_data, get_multinli_data
 from robin_nlp.data.data_movie import get_imdb_data
+
 
 # Define prompts
 NLI_PROMPT='''
 Now perform NLI on the following sentences:
-Sentence 1: {sentence1}
-Sentence 2: {sentence2}
+Sentence 1: {premise}
+Sentence 2: {hypothesis}
 
 OPTIONS: A: entailment  B: neutral C: contradiction
 
@@ -63,18 +68,6 @@ class DatasetConfig:
 
 # Create dataset configurations
 DATASET_CONFIGS = {
-    'nli': DatasetConfig(
-        name='nli',
-        labels=['entailment', 'neutral', 'contradiction'],
-        prompt_template=NLI_PROMPT,
-        data_loader=get_nli_data,
-        required_fields=['sentence1', 'sentence2'],
-        label_token_mapping={
-            'entailment': 'A',
-            'neutral': 'B',
-            'contradiction': 'C'
-        }
-    ),
     'imdb': DatasetConfig(
         name='imdb',
         labels=['negative', 'positive'],
@@ -85,7 +78,31 @@ DATASET_CONFIGS = {
             'negative': 'A',
             'positive': 'B'
         }
-    )
+    ),
+    'snli': DatasetConfig(
+        name='nli',
+        labels=['entailment', 'neutral', 'contradiction'],
+        prompt_template=NLI_PROMPT,
+        data_loader=get_snli_data,
+        required_fields=['sentence1', 'sentence2'],
+        label_token_mapping={
+            'entailment': 'A',
+            'neutral': 'B',
+            'contradiction': 'C'
+        }
+    ),
+    'multinli': DatasetConfig(
+        name='multinli',
+        labels=['entailment', 'neutral', 'contradiction'],
+        prompt_template=NLI_PROMPT,
+        data_loader=get_multinli_data,
+        required_fields=['premise', 'hypothesis'],
+        label_token_mapping={
+            'entailment': 'A',
+            'neutral': 'B',
+            'contradiction': 'C'
+        }
+    ),
 }
 
 def get_dataset_config(dataset_name: str) -> DatasetConfig:
@@ -94,13 +111,11 @@ def get_dataset_config(dataset_name: str) -> DatasetConfig:
         raise ValueError(f"Unsupported dataset: {dataset_name}")
     return DATASET_CONFIGS[dataset_name]
 
-
 # Modified dataset_handlers.py
 def get_dataset(dataset_name: str):
     """Get dataset using configuration"""
     config = get_dataset_config(dataset_name)
     return config.load_data()
-
 
 def get_prompt_template(dataset_name: str):
     """Get prompt template using configuration"""
