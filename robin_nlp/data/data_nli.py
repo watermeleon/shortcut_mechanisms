@@ -76,3 +76,55 @@ def get_snli_data(folder_path: str = "./data/") -> Tuple:
     }
     
     return train_data, test_data, val_data, label_mapping
+
+
+
+def get_monli_data(folder_path: str = "./data/") -> Tuple:
+    """Load the MoNLI dataset
+    
+    MoNLI has a different structure from MultiNLI and SNLI, focusing on
+    monotonicity-based reasoning with only entailment and non-entailment labels.
+    """
+    # try:
+    # First try loading using Hugging Face if available
+    monli_dataset = load_dataset("tasksource/MoNLI")
+    
+    # Access the different splits
+    train_data = monli_dataset["train"]
+    val_data = monli_dataset["test"]
+    test_data = monli_dataset["test"]
+        
+
+    
+    # Convert to a format compatible with the existing framework
+    def convert_example(example):
+        # MoNLI typically has labels like 'entailment' and 'non-entailment'
+        # Map numeric labels if needed
+        # if isinstance(example.get('label'), int):
+        #     gold_label = 'entailment' if example['label'] == 0 else 'non-entailment'
+        # else:
+        gold_label = example.get('gold_label')
+            
+        # Handle different field names that might be in the dataset
+        premise = example.get('sentence1', '')
+        hypothesis = example.get('sentence2', '')
+        
+        return {
+            'premise': premise,
+            'hypothesis': hypothesis,
+            'gold_label': gold_label
+        }
+    
+    # Convert all examples to your framework format
+    train_data = [convert_example(ex) for ex in train_data]
+    val_data = [convert_example(ex) for ex in val_data]
+    test_data = [convert_example(ex) for ex in test_data]
+    
+    # Create label mapping for MoNLI's binary classification
+    label_mapping = {
+        'entailment': 0,
+        'neutral': 1,
+        'contradiction': 2
+    }
+    
+    return train_data, test_data, val_data, label_mapping

@@ -94,7 +94,6 @@ def main():
 
     # Load the dataset config and datasets
     dataset_config = get_dataset_config(args.dataset)
-
     train_data, test_data, val_data, label_mapping = dataset_config.load_data()
 
     # get dataset stats and save the processed dataset
@@ -120,6 +119,22 @@ def main():
 
     wandb.log(final_metrics)
     wandb.finish()
+
+
+    # Run MoNLI evaluation
+    dataset_config = get_dataset_config("monli")
+    monli_train_data, monli_test_data, _, label_mapping = dataset_config.load_data()
+
+    # Will process each dataset separately
+    classifier.set_custom_data(monli_train_data, monli_test_data, monli_test_data, label_mapping)
+    acc, results = classifier.evaluate(classifier.dataloaders["test"], True)
+    print("For MoNLI dataset - Test set:", acc)
+
+    acc, results = classifier.evaluate(classifier.dataloaders["train"], True)
+    print("For MoNLI dataset - Train set:", acc)
+
+
+
 
 if __name__ == "__main__":
     main()

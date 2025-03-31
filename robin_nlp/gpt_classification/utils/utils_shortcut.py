@@ -25,7 +25,7 @@ def parse_arguments():
     parser.add_argument('--epochs', type=int,  help='Number of training epochs')
     parser.add_argument('--batch_size', type=int, help='Batch size for training')
     parser.add_argument('--sample_size', type=int, help='Batch size for training')
-    parser.add_argument('--dataset', type=str, choices=['nli', 'imdb', 'snli', 'multinli'], help='Dataset to use (nli or imdb)')
+    parser.add_argument('--dataset', type=str, choices=['nli', 'imdb', 'snli', 'multinli', 'monli'], help='Dataset to use (nli or imdb)')
 
     parser.add_argument('--load_processed_data', type=str, help='Load processed data from file')
     parser.add_argument('--save_processed_data', type=str, help='Save processed data to file')

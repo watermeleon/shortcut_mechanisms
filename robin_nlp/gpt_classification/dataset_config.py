@@ -4,7 +4,7 @@ from typing import Dict, List, Optional, Callable, Any
 import os
 from pathlib import Path
 # dataset_registry.py
-from robin_nlp.data.data_nli import get_snli_data, get_multinli_data
+from robin_nlp.data.data_nli import get_snli_data, get_multinli_data, get_monli_data
 from robin_nlp.data.data_movie import get_imdb_data
 
 
@@ -103,6 +103,18 @@ DATASET_CONFIGS = {
             'contradiction': 'C'
         }
     ),
+        # Add MoNLI config
+    'monli': DatasetConfig(
+        name='monli',
+        labels=['entailment', 'non-entailment'],
+        prompt_template=NLI_PROMPT,
+        data_loader=get_monli_data,
+        required_fields=['premise', 'hypothesis'],
+        label_token_mapping={
+            'entailment': 'A',
+            'non-entailment': 'B'
+        }
+    )
 }
 
 def get_dataset_config(dataset_name: str) -> DatasetConfig:
