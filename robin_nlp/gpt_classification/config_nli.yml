@@ -4,7 +4,7 @@ epochs: 3
 batch_size: 16
 eval_batch_size: 32
 sample_size: 0
-max_tokens: 200
+max_tokens: 100
 recreate_data: true
 dataset: "snli"
 manual_prepend_bos: true

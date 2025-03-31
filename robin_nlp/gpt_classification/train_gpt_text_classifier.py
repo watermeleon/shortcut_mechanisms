@@ -138,7 +138,7 @@ class GPTClassifier:
         encoded = self.tokenizer.batch_encode_plus(
             texts,
             add_special_tokens=True,
-            max_length=self.args.max_tokens + 50,
+            max_length=self.args.max_tokens *2 + 60,
             padding='longest',
             truncation=True,
             return_attention_mask=True,
