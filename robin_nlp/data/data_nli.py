@@ -85,8 +85,7 @@ def get_monli_data(folder_path: str = "./data/") -> Tuple:
     MoNLI has a different structure from MultiNLI and SNLI, focusing on
     monotonicity-based reasoning with only entailment and non-entailment labels.
     """
-    # try:
-    # First try loading using Hugging Face if available
+    # Load from huggingface (seems to be the same data as from the original paper's Github)
     monli_dataset = load_dataset("tasksource/MoNLI")
     
     # Access the different splits
@@ -98,11 +97,7 @@ def get_monli_data(folder_path: str = "./data/") -> Tuple:
     
     # Convert to a format compatible with the existing framework
     def convert_example(example):
-        # MoNLI typically has labels like 'entailment' and 'non-entailment'
-        # Map numeric labels if needed
-        # if isinstance(example.get('label'), int):
-        #     gold_label = 'entailment' if example['label'] == 0 else 'non-entailment'
-        # else:
+
         gold_label = example.get('gold_label')
             
         # Handle different field names that might be in the dataset
