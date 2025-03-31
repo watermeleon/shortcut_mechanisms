@@ -19,9 +19,10 @@ from robin_nlp.actor_dataset_generator.generate_shortcut_dataset import *
 
 def train_model(train_data, val_data, test_data, label_mapping, dataset_config, wandb, args, logger):
     classifier = GPTClassifier(args, logger, dataset_config)
+    print("Classifier initialized - now setting up data")
     classifier.set_custom_data(train_data, test_data, val_data, label_mapping)
-
     classifier.val_data_full = val_data
+    print("Data set up - now training")
 
     classifier.train(wandb)
     model = classifier.model
