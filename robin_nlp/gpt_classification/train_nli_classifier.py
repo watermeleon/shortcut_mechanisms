@@ -67,7 +67,7 @@ def main():
     else:
         exp_name = args.exp_name
 
-    wandb.init(project=args.wandb_name ,name=exp_name, entity="watermelontology", mode="disabled")
+    wandb.init(project=args.wandb_name ,name=exp_name, entity="watermelontology", mode="online")
     wandb.config.update(config)
 
     if config["use_wandbid_name"] is True:
@@ -116,9 +116,7 @@ def main():
     # copy subgroup accuracy 
     final_metrics = subgroup_accuracy.copy()
     final_metrics['overall_accuracy'] = overall_accuracy
-
     wandb.log(final_metrics)
-    wandb.finish()
 
 
     # Run MoNLI evaluation
@@ -127,14 +125,16 @@ def main():
 
     # Will process each dataset separately
     classifier.set_custom_data(monli_train_data, monli_test_data, monli_test_data, label_mapping)
-    acc, results = classifier.evaluate(classifier.dataloaders["test"], True)
-    print("For MoNLI dataset - Test set:", acc)
 
-    acc, results = classifier.evaluate(classifier.dataloaders["train"], True)
-    print("For MoNLI dataset - Train set:", acc)
+    # Evaluate model on MoNLI datasets
+    monli_test_acc, results = classifier.evaluate(classifier.dataloaders["test"], True)
+    print("For MoNLI dataset - Test set:", monli_test_acc)
 
+    monli_train_acc, results = classifier.evaluate(classifier.dataloaders["train"], True)
+    print("For MoNLI dataset - Train set:", monli_train_acc)
 
-
+    wandb.log({"monli_test_acc": monli_test_acc, "monli_train_acc": monli_train_acc})
+    wandb.finish()
 
 if __name__ == "__main__":
     main()
