@@ -19,10 +19,8 @@ from robin_nlp.actor_dataset_generator.generate_shortcut_dataset import *
 
 def train_model(train_data, val_data, test_data, label_mapping, dataset_config, wandb, args, logger):
     classifier = GPTClassifier(args, logger, dataset_config)
-    print("Classifier initialized - now setting up data")
     classifier.set_custom_data(train_data, test_data, val_data, label_mapping)
     classifier.val_data_full = val_data
-    print("Data set up - now training")
 
     classifier.train(wandb)
     model = classifier.model
@@ -101,7 +99,24 @@ def main():
     dataset_stats(train_data, val_data, test_data, logger) # Print stats for sanity check on the data.    
 
     # TODO: make train_model() use config instead of the args (GPTClassifier class expects args)
-    classifier, model = train_model(train_data, val_data, test_data, label_mapping, dataset_config, wandb, args, logger)   
+    # classifier, model = train_model(train_data, val_data, test_data, label_mapping, dataset_config, wandb, args, logger)   
+    
+    #  Put train_model() code below, to allow for fine-tuning
+    # TODO: ensure finetuning does not overwrite previous results etc.
+    classifier = GPTClassifier(args, logger, dataset_config)
+    
+    load_model = False
+    if load_model:
+        classifier.load_model(config['paths']['model_save_path'])
+        newpath = config['paths']['model_save_path'].split(".pth")[0] + "_finetuned.pth"
+        config['paths']['model_save_path'] = newpath
+        wandb.config.update(config, allow_val_change=True)
+
+    classifier.set_custom_data(train_data, test_data, val_data, label_mapping)
+    classifier.val_data_full = val_data
+
+    classifier.train(wandb)
+    model = classifier.model
     torch.save(model.state_dict(), config['paths']['model_save_path'])
 
     # Evaluate model, and calculate subgroup accuracy
