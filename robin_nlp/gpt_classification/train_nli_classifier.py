@@ -62,7 +62,7 @@ def main():
     print(config)
 
     if args.exp_name == "placeholder":
-        exp_name = f"gpt2_imdb_{config['data_processing']['train_imbalance']}_{config['data_processing']['test_imbalance']}_{config['data_processing']['num_actors']}"
+        exp_name = f"gpt2_{config['data_processing']['train_imbalance']}_{config['data_processing']['test_imbalance']}_{config['data_processing']['num_actors']}"
     else:
         exp_name = args.exp_name
 
@@ -98,10 +98,8 @@ def main():
     # get dataset stats and save the processed dataset
     dataset_stats(train_data, val_data, test_data, logger) # Print stats for sanity check on the data.    
 
-    # TODO: make train_model() use config instead of the args (GPTClassifier class expects args)
-    # classifier, model = train_model(train_data, val_data, test_data, label_mapping, dataset_config, wandb, args, logger)   
-    
-    #  Put train_model() code below, to allow for fine-tuning
+    # classifier, model = train_model(train_data, val_data, test_data, label_mapping, dataset_config, wandb, args, logger)       
+    #  Moved train_model() code below, to allow for fine-tuning
     # TODO: ensure finetuning does not overwrite previous results etc.
     classifier = GPTClassifier(args, logger, dataset_config)
     

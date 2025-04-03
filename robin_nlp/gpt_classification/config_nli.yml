@@ -37,6 +37,6 @@ data_processing:
 
 paths:
   output_dir: "./results/"
-  model_save_path: "gpt2_imdb_classifier.pth"
-  dataset_save_path: "processed_imdb_dataset.pkl"
-  results_save_path: "imdb_classification_results.json"
+  model_save_path: "gpt2_classifier.pth"
+  dataset_save_path: "processed_dataset.pkl"
+  results_save_path: "classification_results.json"
