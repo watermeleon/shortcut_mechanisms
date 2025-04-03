@@ -106,13 +106,14 @@ DATASET_CONFIGS = {
         # Add MoNLI config
     'monli': DatasetConfig(
         name='monli',
-        labels=['entailment', 'non-entailment'],
+        labels=['entailment', 'neutral', 'contradiction'],
         prompt_template=NLI_PROMPT,
         data_loader=get_monli_data,
         required_fields=['premise', 'hypothesis'],
         label_token_mapping={
             'entailment': 'A',
-            'non-entailment': 'B'
+            'neutral': 'B',
+            'contradiction': 'C'
         }
     )
 }
